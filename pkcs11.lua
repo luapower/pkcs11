@@ -2385,9 +2385,13 @@ for i, slot_id in ipairs(GetSlotList(true)) do
 	local ti = GetTokenInfo(slot_id)
 	pp('GetTokenInfo', ti)
 	local session_id = OpenSession(slot_id)
+	print'Logging in...'
 	assert(Login(session_id, '123456789'))
+	print'Logging out...'
 	Logout(session_id)
+	print'Closing session...'
 	CloseSession(session_id)
+	print'Done.'
 end
 
 Finalize()
