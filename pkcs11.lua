@@ -2271,8 +2271,8 @@ CK_C_CancelFunction C_CancelFunction;
 CK_C_WaitForSlotEvent C_WaitForSlotEvent;
 ]]
 
-local C = ffi.load'eTPKCS11.dll'
-local M = {C = C, __index = C}
+local M = {}
+M._M = M
 setmetatable(M, M)
 local assert = assert
 local format = string.format
@@ -2282,6 +2282,12 @@ local num = tonumber
 local pp = require'pp'
 local bit = bit
 setfenv(1, M)
+
+function link(libname)
+	local C = ffi.load(libname)
+	_M.__index = C
+	_M.C = C
+end
 
 local function check(ret)
 	assert(ret == CKR_OK, format('%x', ret))
@@ -2376,6 +2382,8 @@ end
 --self-test ------------------------------------------------------------------
 
 if not ... then
+
+link'eTPKCS11.dll'
 
 Initialize()
 
