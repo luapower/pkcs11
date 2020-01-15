@@ -2376,7 +2376,7 @@ function Login(session, pin, admin)
 end
 
 function Logout(session_id)
-	check(C_Logout(session_id))
+	return ok(C_Logout(session_id))
 end
 
 --self-test ------------------------------------------------------------------
